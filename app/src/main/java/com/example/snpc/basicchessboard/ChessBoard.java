@@ -6,8 +6,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static com.example.snpc.basicchessboard.Constants.BLACK_BISHOP;
+import static com.example.snpc.basicchessboard.Constants.BLACK_KING;
+import static com.example.snpc.basicchessboard.Constants.BLACK_KNIGHT;
+import static com.example.snpc.basicchessboard.Constants.BLACK_PAWN;
+import static com.example.snpc.basicchessboard.Constants.BLACK_QUEEN;
+import static com.example.snpc.basicchessboard.Constants.BLACK_ROOK;
 import static com.example.snpc.basicchessboard.Constants.BLANK_BLACK;
 import static com.example.snpc.basicchessboard.Constants.BLANK_WHITE;
+import static com.example.snpc.basicchessboard.Constants.WHITE_BISHOP;
+import static com.example.snpc.basicchessboard.Constants.WHITE_KING;
+import static com.example.snpc.basicchessboard.Constants.WHITE_KNIGHT;
+import static com.example.snpc.basicchessboard.Constants.WHITE_PAWN;
+import static com.example.snpc.basicchessboard.Constants.WHITE_QUEEN;
+import static com.example.snpc.basicchessboard.Constants.WHITE_ROOK;
 
 public class ChessBoard extends AppCompatActivity {
 
@@ -24,35 +36,35 @@ public class ChessBoard extends AppCompatActivity {
         setContentView(R.layout.activity_chess_board);
 
         board = new int[8][8];
-        board[0][0] = 0b01110;
-        board[0][1] = 0b10011;
-        board[0][2] = 0b10110;
-        board[0][3] = 0b11011;
-        board[0][4] = 0b11110;
-        board[0][5] = 0b10111;
-        board[0][6] = 0b10010;
-        board[0][7] = 0b01111;
-        board[7][0] = 0b01101;
-        board[7][1] = 0b10000;
-        board[7][2] = 0b10101;
-        board[7][3] = 0b11000;
-        board[7][4] = 0b11101;
-        board[7][5] = 0b10100;
-        board[7][6] = 0b10001;
-        board[7][7] = 0b01100;
+        board[0][0] = BLACK_ROOK;
+        board[0][1] = BLACK_KNIGHT;
+        board[0][2] = BLACK_BISHOP;
+        board[0][3] = BLACK_QUEEN;
+        board[0][4] = BLACK_KING;
+        board[0][5] = BLACK_BISHOP;
+        board[0][6] = BLACK_KNIGHT;
+        board[0][7] = BLACK_ROOK;
+        board[7][0] = WHITE_ROOK;
+        board[7][1] = WHITE_KNIGHT;
+        board[7][2] = WHITE_BISHOP;
+        board[7][3] = WHITE_QUEEN;
+        board[7][4] = WHITE_KING;
+        board[7][5] = WHITE_BISHOP;
+        board[7][6] = WHITE_KNIGHT;
+        board[7][7] = WHITE_ROOK;
         for(int row = 1; row < 7; row++){       //Board setup
             for(int col = 0; col < 8; col++){
                 if(row == 1){                   //Black Pawns
                     if(col%2 == 1){
-                        board[row][col] = 0b01010;
+                        board[row][col] = BLACK_PAWN;
                     }else{
-                        board[row][col] = 0b01011;
+                        board[row][col] = BLACK_PAWN;
                     }
                 }else if (row == 6){            //White Pawns
                     if(col%2 == 1){
-                        board[row][col] = 0b01001;
+                        board[row][col] = WHITE_PAWN;
                     }else{
-                        board[row][col] = 0b01000;
+                        board[row][col] = WHITE_PAWN;
                     }
                 }else if(row%2 == 1){           //3rd and 5th blank row
                     if(col%2 == 1){
@@ -75,11 +87,11 @@ public class ChessBoard extends AppCompatActivity {
     private void moveXY(int row, int col){
         if(turn){
             if((row != -1)&&(col != -1)){
-                if((holdP == 0b01001) || (holdP == 0b01000)){       //White Pawn
+                if((holdP == WHITE_PAWN) || (holdP == WHITE_PAWN)){       //White Pawn
                     emptyHold();
-                }else if((holdP == 0b01011) || (holdP == 0b01010)){ //Black Pawn
+                }else if((holdP == BLACK_PAWN) || (holdP == BLACK_PAWN)){ //Black Pawn
                     emptyHold();
-                }else if((holdP == 0b01111) || (holdP == 0b01110) || (holdP == 0b01101) || (holdP == 0b01100)){     //Rook
+                }else if((holdP == BLACK_ROOK) || (holdP == BLACK_ROOK) || (holdP == WHITE_ROOK) || (holdP == WHITE_ROOK)){     //Rook
                     if((holdX == row) || (holdY == col)){
                         if((holdX == row)  && (holdY == col)){
                             emptyHold();
@@ -151,7 +163,7 @@ public class ChessBoard extends AppCompatActivity {
                         TextView error = (TextView) findViewById(R.id.error);
                         error.setText("Invalid Rook Move");
                     }
-                }else if ((holdP == 0b10011) || (holdP == 0b10010) || (holdP == 0b10001) || (holdP == 0b10000)){    //Knight
+                }else if ((holdP == BLACK_KNIGHT) || (holdP == BLACK_KNIGHT) || (holdP == WHITE_KNIGHT) || (holdP == WHITE_KNIGHT)){    //Knight
                     if((Math.abs(holdX - row) == 2) && (Math.abs(holdY - col) == 1)){
                         onValidMove(row,col);
                     }else if((Math.abs(holdX - row) == 1) && (Math.abs(holdY - col) == 2)){
@@ -161,7 +173,7 @@ public class ChessBoard extends AppCompatActivity {
                         TextView error = (TextView) findViewById(R.id.error);
                         error.setText("Invalid Knight Move");
                     }
-                }else if((holdP == 0b10111) || (holdP == 0b10110) || (holdP == 0b10101) || (holdP == 0b10100)){     //Bishop
+                }else if((holdP == BLACK_BISHOP) || (holdP == BLACK_BISHOP) || (holdP == WHITE_BISHOP) || (holdP == WHITE_BISHOP)){     //Bishop
                     if(Math.abs(holdX - row) == Math.abs(holdY - col)){
                         if((holdX == row)  && (holdY == col)){
                             emptyHold();
@@ -223,7 +235,7 @@ public class ChessBoard extends AppCompatActivity {
                         TextView error = (TextView) findViewById(R.id.error);
                         error.setText("Invalid Bishop Move");
                     }
-                }else if((holdP == 0b11011) || (holdP == 0b11010) || (holdP == 0b11001) || (holdP == 0b11000)){     //Queen
+                }else if((holdP == BLACK_QUEEN) || (holdP == BLACK_QUEEN) || (holdP == WHITE_QUEEN) || (holdP == WHITE_QUEEN)){     //Queen
                     if(Math.abs(holdX - row) == Math.abs(holdY - col)){
 
                     }else if((holdX == row) || (holdY == col)){
@@ -319,7 +331,7 @@ public class ChessBoard extends AppCompatActivity {
     }
 
     private void onValidMove(int row, int col){
-        board[row][col] = (holdP&0b11110)+(board[row][col]&BLANK_BLACK);
+        board[row][col] = (holdP&BLACK_KING)+(board[row][col]&BLANK_BLACK);
         updateBoard(row,col,holdP);
         if((holdP & BLANK_BLACK) == BLANK_BLACK){
             board[holdX][holdY] = BLANK_BLACK;
@@ -483,53 +495,53 @@ public class ChessBoard extends AppCompatActivity {
             square.setBackgroundResource(R.drawable.p00000);
         }else if (piece == BLANK_BLACK){
             square.setBackgroundResource(R.drawable.p00001);
-        }else if (piece == 0b01000){
+        }else if (piece == WHITE_PAWN){
             square.setBackgroundResource(R.drawable.p01000);
-        }else if (piece == 0b01001){
+        }else if (piece == WHITE_PAWN){
             square.setBackgroundResource(R.drawable.p01001);
-        }else if (piece == 0b01010){
+        }else if (piece == BLACK_PAWN){
             square.setBackgroundResource(R.drawable.p01010);
-        }else if (piece == 0b01011){
+        }else if (piece == BLACK_PAWN){
             square.setBackgroundResource(R.drawable.p01011);
-        }else if (piece == 0b01100){
+        }else if (piece == WHITE_ROOK){
             square.setBackgroundResource(R.drawable.p01100);
-        }else if (piece == 0b01101){
+        }else if (piece == WHITE_ROOK){
             square.setBackgroundResource(R.drawable.p01101);
-        }else if (piece == 0b01110){
+        }else if (piece == BLACK_ROOK){
             square.setBackgroundResource(R.drawable.p01110);
-        }else if (piece == 0b01111){
+        }else if (piece == BLACK_ROOK){
             square.setBackgroundResource(R.drawable.p01111);
-        }else if (piece == 0b10000){
+        }else if (piece == WHITE_KNIGHT){
             square.setBackgroundResource(R.drawable.p10000);
-        }else if (piece == 0b10001){
+        }else if (piece == WHITE_KNIGHT){
             square.setBackgroundResource(R.drawable.p10001);
-        }else if (piece == 0b10010){
+        }else if (piece == BLACK_KNIGHT){
             square.setBackgroundResource(R.drawable.p10010);
-        }else if (piece == 0b10011){
+        }else if (piece == BLACK_KNIGHT){
             square.setBackgroundResource(R.drawable.p10011);
-        }else if (piece == 0b10100){
+        }else if (piece == WHITE_BISHOP){
             square.setBackgroundResource(R.drawable.p10100);
-        }else if (piece == 0b10101){
+        }else if (piece == WHITE_BISHOP){
             square.setBackgroundResource(R.drawable.p10101);
-        }else if (piece == 0b10110){
+        }else if (piece == BLACK_BISHOP){
             square.setBackgroundResource(R.drawable.p10110);
-        }else if (piece == 0b10111){
+        }else if (piece == BLACK_BISHOP){
             square.setBackgroundResource(R.drawable.p10111);
-        }else if (piece == 0b11000){
+        }else if (piece == WHITE_QUEEN){
             square.setBackgroundResource(R.drawable.p11000);
-        }else if (piece == 0b11001){
+        }else if (piece == WHITE_QUEEN){
             square.setBackgroundResource(R.drawable.p11001);
-        }else if (piece == 0b11010){
+        }else if (piece == BLACK_QUEEN){
             square.setBackgroundResource(R.drawable.p11010);
-        }else if (piece == 0b11011){
+        }else if (piece == BLACK_QUEEN){
             square.setBackgroundResource(R.drawable.p11011);
-        }else if (piece == 0b11100){
+        }else if (piece == WHITE_KING){
             square.setBackgroundResource(R.drawable.p11100);
-        }else if (piece == 0b11101){
+        }else if (piece == WHITE_KING){
             square.setBackgroundResource(R.drawable.p11101);
-        }else if (piece == 0b11110){
+        }else if (piece == BLACK_KING){
             square.setBackgroundResource(R.drawable.p11110);
-        }else if (piece == 0b11111){
+        }else if (piece == BLACK_KING){
             square.setBackgroundResource(R.drawable.p11111);
         }
     }
